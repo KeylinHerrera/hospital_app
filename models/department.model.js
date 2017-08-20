@@ -16,6 +16,10 @@ const EXPORTABLES = ['_id', 'name', 'description'];
 
 module.exports = Department;
 
+/*
+ * Department function
+ * @params {Object} data
+ */
 function Department(data){
 	var self = this;
 	

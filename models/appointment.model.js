@@ -3,10 +3,15 @@ const ObjectID = require('mongodb').ObjectID;
 const Department = require('./department.model');
 const moment = require('moment');
 
+// Validations
 const VALIDATIONS = {
 	date: {
 		required: true,
 		validation: 'date'
+	},
+	hour: {
+		required: true,
+		validation: 'hour'
 	},
 	first_name: {
 		required: false,
@@ -35,15 +40,20 @@ const VALIDATIONS = {
 	}
 };
 
-const EXPORTABLES = ['date', 'ID', 'first_name', 'last_name', 'deparment'];
+const EXPORTABLES = ['date', 'hour',  'ID', 'first_name', 'last_name', 'deparment'];
 
 module.exports = Appointment;
 
+/*
+ * Appointment function
+ * @params {Object} data
+ */
 function Appointment(data){
 	var self = this;
 
 	Object.assign(data, {
-		date: data.date ? moment(data.date).format() : moment().format(),
+		date: data.date ? moment(data.date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD'),
+		hour: data.hour ? moment(data.hour).format( "HH:mm a") : moment().format( "HH:mm a"),
 		first_name: data.first_name || '',
 		last_name: data.last_name || '',
 		ID: data.ID || null,

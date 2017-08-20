@@ -4,6 +4,13 @@ const moment = require('moment');
 
 module.exports = Model;
 
+/*
+ * Model function
+ * @params {Object} data
+ * @params {Object} validations
+ * @params {Object} visible
+ * @params {Object} collection
+ */
 function Model(data, validations = [], visible = [], collection){
 	let exportables = visible.concat(['_id']);
 	let self = this;
@@ -131,6 +138,14 @@ function Model(data, validations = [], visible = [], collection){
 	}
 	
 	function _validDate(value, key){
+		return new Promise(resolve => resolve({
+			value,
+			key,
+			valid: moment(value).isValid()
+		}))
+	}
+
+	function _validHour(value, key){
 		return new Promise(resolve => resolve({
 			value,
 			key,
