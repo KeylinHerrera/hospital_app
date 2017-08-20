@@ -3,9 +3,12 @@ const db = require('../db');
 const moment = require('moment');
 const Appointment = require('../models/appointment.model');
 
+const PATH = __dirname+'/../data/styles.json';
+
 // Export controller functions
 module.exports = {
 	getAll,
+	getData,
 	create,
 	remove,
 	update,
@@ -24,6 +27,25 @@ function getAll(req, res){
 	stream.on('end', () => res.json(data));
 	stream.on('error', err => res.json({error: err}));
 }
+
+/**
+ *
+ *
+ * 
+ * Get Data function
+ * @param req
+ * @param res
+ */
+function getData(res, req) {
+	let data = '';
+	try{
+		data = require(PATH);
+	}catch (err){ 
+		data = DEFAULT_DATA;
+	}
+	return _jsonResponse(res, data);
+}
+
 
 /**
  * Update one department
